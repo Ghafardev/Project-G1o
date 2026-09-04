@@ -116,6 +116,30 @@
       ]
     },
     {
+      "name": "latlong2",
+      "version": "0.9.1",
+      "dependencies": [
+        "intl"
+      ]
+    },
+    {
+      "name": "flutter_map",
+      "version": "7.0.2",
+      "dependencies": [
+        "async",
+        "collection",
+        "dart_earcut",
+        "flutter",
+        "http",
+        "latlong2",
+        "logger",
+        "meta",
+        "polylabel",
+        "proj4dart",
+        "vector_math"
+      ]
+    },
+    {
       "name": "app_settings",
       "version": "7.0.0",
       "dependencies": [
@@ -371,6 +395,11 @@
     {
       "name": "mime",
       "version": "2.0.0",
+      "dependencies": []
+    },
+    {
+      "name": "meta",
+      "version": "1.19.0",
       "dependencies": []
     },
     {
@@ -630,6 +659,11 @@
       ]
     },
     {
+      "name": "vector_math",
+      "version": "2.4.2",
+      "dependencies": []
+    },
+    {
       "name": "clock",
       "version": "1.1.2",
       "dependencies": []
@@ -667,6 +701,44 @@
         "string_scanner",
         "term_glyph"
       ]
+    },
+    {
+      "name": "intl",
+      "version": "0.20.3",
+      "dependencies": [
+        "clock",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "proj4dart",
+      "version": "2.1.0",
+      "dependencies": [
+        "meta",
+        "mgrs_dart",
+        "wkt_parser"
+      ]
+    },
+    {
+      "name": "polylabel",
+      "version": "1.0.1",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "logger",
+      "version": "2.7.0",
+      "dependencies": [
+        "clock",
+        "meta"
+      ]
+    },
+    {
+      "name": "dart_earcut",
+      "version": "1.2.0",
+      "dependencies": []
     },
     {
       "name": "plugin_platform_interface",
@@ -1110,6 +1182,18 @@
       ]
     },
     {
+      "name": "wkt_parser",
+      "version": "2.0.0",
+      "dependencies": []
+    },
+    {
+      "name": "mgrs_dart",
+      "version": "2.0.0",
+      "dependencies": [
+        "unicode"
+      ]
+    },
+    {
       "name": "xml",
       "version": "6.6.1",
       "dependencies": [
@@ -1173,6 +1257,13 @@
       "dependencies": []
     },
     {
+      "name": "unicode",
+      "version": "0.3.1",
+      "dependencies": [
+        "lists"
+      ]
+    },
+    {
       "name": "petitparser",
       "version": "7.0.2",
       "dependencies": [
@@ -1213,101 +1304,10 @@
       ]
     },
     {
-      "name": "latlong2",
-      "version": "0.9.1",
-      "dependencies": [
-        "intl"
-      ]
-    },
-    {
-      "name": "meta",
-      "version": "1.19.0",
-      "dependencies": []
-    },
-    {
-      "name": "flutter_map",
-      "version": "7.0.2",
-      "dependencies": [
-        "async",
-        "collection",
-        "dart_earcut",
-        "flutter",
-        "http",
-        "latlong2",
-        "logger",
-        "meta",
-        "polylabel",
-        "proj4dart",
-        "vector_math"
-      ]
-    },
-    {
-      "name": "proj4dart",
-      "version": "2.1.0",
-      "dependencies": [
-        "meta",
-        "mgrs_dart",
-        "wkt_parser"
-      ]
-    },
-    {
-      "name": "polylabel",
-      "version": "1.0.1",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
-      "name": "wkt_parser",
-      "version": "2.0.0",
-      "dependencies": []
-    },
-    {
-      "name": "mgrs_dart",
-      "version": "2.0.0",
-      "dependencies": [
-        "unicode"
-      ]
-    },
-    {
-      "name": "dart_earcut",
-      "version": "1.2.0",
-      "dependencies": []
-    },
-    {
-      "name": "unicode",
-      "version": "0.3.1",
-      "dependencies": [
-        "lists"
-      ]
-    },
-    {
       "name": "lists",
       "version": "1.0.1",
       "dependencies": [
         "meta"
-      ]
-    },
-    {
-      "name": "vector_math",
-      "version": "2.4.2",
-      "dependencies": []
-    },
-    {
-      "name": "logger",
-      "version": "2.7.0",
-      "dependencies": [
-        "clock",
-        "meta"
-      ]
-    },
-    {
-      "name": "intl",
-      "version": "0.20.3",
-      "dependencies": [
-        "clock",
-        "meta",
-        "path"
       ]
     }
   ],
