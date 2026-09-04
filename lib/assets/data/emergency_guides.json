@@ -1,0 +1,26 @@
+[
+  {
+    "id": "p3k_1",
+    "category": "P3K",
+    "title": "Luka Bakar",
+    "content": "1. Alirkan air biasa ke area luka selama 20 menit.\n2. Tutup dengan kain bersih atau plastik wrap.\n3. Jangan gunakan odol atau mentega."
+  },
+  {
+    "id": "evak_1",
+    "category": "Evakuasi",
+    "title": "Gempa Bumi",
+    "content": "1. Merunduk, Lindungi Kepala, dan Berpegangan (Drop, Cover, Hold on).\n2. Jauhi kaca dan benda yang mudah jatuh.\n3. Keluar melalui tangga darurat, jangan gunakan lift."
+  },
+  {
+    "id": "banjir",
+    "category": "Banjir",
+    "title": "Banjir",
+    "content": "1. Pindah ke area yang lebih tinggi\n2. Hindari meneyntuh air yang tergenang\n3. Matikan perangkat elektronik dan aliran listrik\n4. Jauhi listrik yang terendam"
+  },
+  {
+    "id": "Kebakaran",
+    "category":"Evakuasi",
+    "title":"Kebakaran",
+    "content": "1. JAngan panik! segera telepon 113 lalu tutupi hidung dan mulut dengan kain\n2. Evakuasi area segera\n3. Gunakan jalur yang tersedia, patuhi arahan rambu\n4. Jangan menggunakan lift"
+  }
+]

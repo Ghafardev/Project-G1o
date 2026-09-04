@@ -1,0 +1,15 @@
+# Mengabaikan Virtual Environment Python
+venv/
+env/
+
+# Mengabaikan file model AI yang berat
+mobile_models/
+*.gguf
+*.bin
+*.task
+
+assets/models
+*.gguf
+# Mengabaikan cache Python
+__pycache__/
+*.pyc

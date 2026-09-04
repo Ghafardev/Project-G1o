@@ -1,0 +1,47 @@
+name: emergency_mvp_app
+description: Emergency Response Mobile Application with AI-powered chatbot
+version: 1.0.0+1
+publish_to: 'none'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  connectivity_plus: any
+  http: any
+  isar: ^3.1.0
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: any
+  geolocator: ^13.0.1
+  url_launcher: ^6.3.0
+  provider: ^6.1.1
+  flutter_local_notifications: ^21.0.0
+  google_fonts: ^6.1.0
+  shared_preferences: ^2.2.2
+  app_settings: ^7.0.0
+  flutter_map: ^7.0.0
+  latlong2: ^0.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  isar_generator: 3.1.0+1
+  build_runner: any
+  flutter_lints: any
+
+environment :
+  sdk: ^3.11.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/assets/models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
+    - lib/assets/data/emergency_guides.json
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: lib/assets/fonts/NotoSans-Regular.ttf
+        - asset: lib/assets/fonts/NotoSans-Bold.ttf
+          weight: 700
+
+dependency_overrides:
+  ffi: ^2.1.0
