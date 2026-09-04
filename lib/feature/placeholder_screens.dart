@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/widgets/coming_soon_widget.dart';
 
-class MapScreen extends StatelessWidget {
-  const MapScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ComingSoonWidget(
-      title: 'Peta Jalur Evakuasi',
-      icon: Icons.map_outlined,
-      message: 'Fitur peta evakuasi sedang dalam pengembangan',
-    );
-  }
-}
-
 class LogsScreen extends StatelessWidget {
   const LogsScreen({super.key});
 

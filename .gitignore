@@ -1,15 +1,37 @@
-# Mengabaikan Virtual Environment Python
+# Python
 venv/
 env/
+__pycache__/
+*.pyc
 
-# Mengabaikan file model AI yang berat
+# AI Models
 mobile_models/
 *.gguf
 *.bin
 *.task
 
-assets/models
-*.gguf
-# Mengabaikan cache Python
-__pycache__/
-*.pyc
+# Flutter
+*.log
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# IDE
+.windsurf/
+.vscode/
+.idea/
+
+# Platform build artifacts
+**/android/.gradle/
+**/android/app/build/
+**/ios/Pods/
+**/ios/.symlinks/
+**/linux/flutter/ephemeral/
+**/macos/Pods/
+**/macos/Flutter/ephemeral/
+**/web/
+**/windows/flutter/ephemeral/
+
+# Environment
+.env
+.env.*

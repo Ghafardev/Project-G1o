@@ -15,7 +15,7 @@ extension GetChatMessageCollection on Isar {
 
 const ChatMessageSchema = CollectionSchema(
   name: r'ChatMessage',
-  id: 1,
+  id: 35366979330584919,
   properties: {
     r'content': PropertySchema(
       id: 0,

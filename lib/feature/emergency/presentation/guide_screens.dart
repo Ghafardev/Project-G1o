@@ -3,12 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/widgets/detail_page_template.dart';
 
-class GuideScreen extends StatelessWidget {
+class GuideScreen extends StatefulWidget {
   const GuideScreen({super.key});
 
+  @override
+  State<GuideScreen> createState() => _GuideScreenState();
+}
+
+class _GuideScreenState extends State<GuideScreen> {
+  late Future<List<dynamic>> _guidesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _guidesFuture = _loadGuides();
+  }
+
   Future<List<dynamic>> _loadGuides() async {
-    final String response = await rootBundle.loadString('lib/assets/data/emergency_guides.json');
-    return json.decode(response);
+    try {
+      final String response = await rootBundle.loadString('lib/assets/data/emergency_guides.json');
+      return json.decode(response);
+    } catch (e) {
+      throw Exception('Gagal memuat panduan darurat: $e');
+    }
   }
 
   @override
@@ -20,11 +37,39 @@ class GuideScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: FutureBuilder(
-        future: _loadGuides(),
+      body: FutureBuilder<List<dynamic>>(
+        future: _guidesFuture,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-          final guides = snapshot.data as List<dynamic>;
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline, color: Colors.red, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Gagal memuat panduan',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '${snapshot.error}',
+                    style: TextStyle(color: Colors.white54, fontSize: 12),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () => setState(() => _guidesFuture = _loadGuides()),
+                    child: const Text('Coba Lagi'),
+                  ),
+                ],
+              ),
+            );
+          }
+          final guides = snapshot.data!;
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: guides.length,
@@ -91,7 +136,7 @@ class GuideScreen extends StatelessWidget {
   void _showDetail(BuildContext context, dynamic guide) {
     final icon = _getIconForCategory(guide['category']);
     final color = _getColorForCategory(guide['category']);
-    
+
     Navigator.push(
       context,
       MaterialPageRoute(

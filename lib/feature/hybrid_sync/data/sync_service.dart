@@ -4,10 +4,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:isar/isar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:emergency_mvp_app/feature/RagaBhumi_ai/data/chat_message.dart';
+import 'package:emergency_mvp_app/core/config/app_config.dart';
 
 class SyncService {
   final Isar isar;
-  final String _serverUrl = "https://api.gaiaconnect.dev/sync/batch";
 
   SyncService(this.isar) {
     _listenToConnectionChanges();
@@ -31,16 +31,20 @@ class SyncService {
 
     try {
       final List<Map<String, dynamic>> payload = pendingMessages.map((msg) => {
-        'local_id': msg.id,
-        'content': msg.content,
-        'isUser': msg.isUser,
-        'timestamp': msg.timestamp.toIso8601String(),
+        'id': msg.id.toString(),
+        'session_id': 'session_${msg.id}',
+        'sender_type': msg.isUser ? 'user' : 'ai',
+        'message': msg.content,
+        'timestamp': msg.timestamp.millisecondsSinceEpoch,
       }).toList();
 
       final response = await http.post(
-        Uri.parse(_serverUrl),
+        Uri.parse(AppConfig.syncEndpoint),
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode({'messages': payload}),
+        body: jsonEncode({
+          'device_id': AppConfig.appNameLower,
+          'unsynced_messages': payload,
+        }),
       );
 
       if (response.statusCode == 200) {

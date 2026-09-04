@@ -1,78 +1,72 @@
 import 'package:flutter/material.dart';
 import '../../../core/routes.dart';
-import '../../emergency/presentation/emergency_modal.dart';
-import 'widgets/glass_menu_card.dart'; // Pastikan file ini ada sesuai langkah refactor 1
+import '../../../core/widgets/bottom_nav.dart';
+import 'widgets/glass_menu_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 1. Data menu dengan desain 3x3 grid sesuai v0
     final List<Map<String, dynamic>> menuItems = [
-      // BARIS 1
       {
-        'icon': Icons.waves_outlined, // Banjir
+        'icon': Icons.waves_outlined,
         'title': 'Banjir',
         'subtitle': 'Info & Evakuasi',
-        'color': Color(0xFF2196F3), // Warna biru bright
+        'color': Color(0xFF2196F3),
         'route': AppRoutes.guide,
       },
       {
-        'icon': Icons.landscape_outlined, // Gempa
+        'icon': Icons.landscape_outlined,
         'title': 'Gempa',
         'subtitle': 'Panduan Aman',
-        'color': Color(0xFFFF9800), // Warna oranye bright
+        'color': Color(0xFFFF9800),
         'route': AppRoutes.guide,
       },
       {
-        'icon': Icons.chat_bubble_outline, // RagaBhumi AI
+        'icon': Icons.chat_bubble_outline,
         'title': 'RagaBhumi',
         'subtitle': 'Asisten AI',
-        'color': Color(0xFF9C27B0), // Warna ungu bright
+        'color': Color(0xFF9C27B0),
         'route': AppRoutes.chat,
       },
-
-      // BARIS 2
       {
-        'icon': Icons.map_outlined, // Peta
+        'icon': Icons.map_outlined,
         'title': 'Peta',
         'subtitle': 'Lokasi Darurat',
-        'color': Color(0xFF4CAF50), // Warna hijau bright
-        'route': '/map',
+        'color': Color(0xFF4CAF50),
+        'route': AppRoutes.map,
       },
       {
-        'icon': Icons.medical_services_outlined, // P3K
+        'icon': Icons.medical_services_outlined,
         'title': 'P3K',
         'subtitle': 'Pertolongan Pertama',
-        'color': Color(0xFFE91E63), // Warna pink bright
+        'color': Color(0xFFE91E63),
         'route': AppRoutes.guide,
       },
       {
-        'icon': Icons.local_fire_department_outlined, // Kebakaran
+        'icon': Icons.local_fire_department_outlined,
         'title': 'Kebakaran',
         'subtitle': 'Tindakan Darurat',
-        'color': Color(0xFFF44336), // Warna merah bright
+        'color': Color(0xFFF44336),
         'route': AppRoutes.guide,
       },
-
-      // BARIS 3
       {
-        'icon': Icons.person_2_outlined, // Kontak Darurat
+        'icon': Icons.person_2_outlined,
         'title': 'Kontak Darurat',
         'subtitle': 'Hubungi Bantuan',
-        'color': Color(0xFF673AB7), // Warna deep purple bright
+        'color': Color(0xFF673AB7),
         'route': AppRoutes.contacts,
       },
       {
-        'icon': Icons.warning_amber_outlined, // Peringatan
+        'icon': Icons.warning_amber_outlined,
         'title': 'Peringatan',
         'subtitle': 'Info Bencana',
-        'color': Color(0xFFFFEB3B), // Warna kuning bright
-        'route': '/logs',
+        'color': Color(0xFFFFEB3B),
+        'route': AppRoutes.logs,
       },
       {
-        'icon': Icons.shield_outlined, // Keamanan
+        'icon': Icons.shield_outlined,
         'title': 'Keamanan',
         'subtitle': 'Konfigurasi',
         'color': Color(0xFF1c2541),
@@ -94,8 +88,6 @@ class DashboardScreen extends StatelessWidget {
                       fontSize: 28,
                       fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
-
-              // 2. Kartu Status Atas (Dikembalikan)
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -145,11 +137,8 @@ class DashboardScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-
               const Text("Aksi Cepat", style: TextStyle(color: Colors.white70, fontSize: 16)),
               const SizedBox(height: 10),
-
-              // 3. Grid View Menu Utama
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -168,15 +157,8 @@ class DashboardScreen extends StatelessWidget {
                       colors: [item['color'], (item['color'] as Color).withValues(alpha: 0.6)],
                       isAction: true,
                       onTap: () {
-                        // Logika navigasi
                         if (item.containsKey('route')) {
                           Navigator.pushNamed(context, item['route']);
-                        } else if (item.containsKey('action')) {
-                          if (item['action'] == 'sos') {
-                            EmergencyModal.show(context);
-                          } else if (item['action'] == 'flashlight') {
-                            // Implementasi flashlight jika diperlukan
-                          }
                         }
                       },
                     );
@@ -187,86 +169,9 @@ class DashboardScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFF1b2340),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.home_outlined, color: Colors.white), 
-                onPressed: () {
-                  // Already on home screen
-                }
-              ),
-              IconButton(
-                icon: const Icon(Icons.map_outlined, color: Colors.white), 
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.map);
-                }
-              ),
-              const SizedBox(width: 40), // Spasi untuk tombol SOS
-              IconButton(
-                icon: const Icon(Icons.chat_bubble_outline, color: Colors.white), 
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.ai);
-                }
-              ),
-              IconButton(
-                icon: const Icon(Icons.person_outlined, color: Colors.white), 
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.profile);
-                }
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: const MainBottomNav(currentRoute: AppRoutes.dashboard),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        width: 70,
-        height: 70,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: const Color(0xFFFF3B3B),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFFF3B3B).withValues(alpha: 0.5),
-              blurRadius: 20,
-              spreadRadius: 5,
-            ),
-            BoxShadow(
-              color: const Color(0xFFFF3B3B).withValues(alpha: 0.8),
-              blurRadius: 40,
-              spreadRadius: -2,
-            ),
-          ],
-        ),
-        child: Material(
-          shape: const CircleBorder(),
-          color: Colors.transparent,
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: () {
-              EmergencyModal.show(context);
-            },
-            child: const Center(
-              child: Text(
-                "SOS",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      floatingActionButton: const SosFloatingButton(),
     );
   }
 }

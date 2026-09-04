@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/language_provider.dart';
 import '../../../core/routes.dart';
-import '../../emergency/presentation/emergency_modal.dart';
+import '../../../core/widgets/bottom_nav.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -28,7 +28,6 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // User Info Header
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
@@ -40,7 +39,6 @@ class ProfilePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // Profile Avatar
                   Container(
                     width: 80,
                     height: 80,
@@ -55,7 +53,6 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // Name
                   Text(
                     'Ahmad Fauzi',
                     style: GoogleFonts.poppins(
@@ -65,7 +62,6 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Phone Number
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -81,7 +77,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  // Verification Status
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
@@ -109,8 +104,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Settings Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -123,8 +116,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-
-            // Menu List
             _buildMenuItem(
               context,
               icon: Icons.medical_information_outlined,
@@ -156,8 +147,6 @@ class ProfilePage extends StatelessWidget {
               onTap: () {},
             ),
             const SizedBox(height: 16),
-
-            // Other Options Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -170,7 +159,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-
             _buildMenuItem(
               context,
               icon: Icons.phone_outlined,
@@ -202,8 +190,6 @@ class ProfilePage extends StatelessWidget {
               onTap: () {},
             ),
             const SizedBox(height: 16),
-
-            // Logout Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
@@ -230,49 +216,9 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
+      bottomNavigationBar: const MainBottomNav(currentRoute: AppRoutes.profile),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        width: 70,
-        height: 70,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: const Color(0xFFFF3B3B),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFFFF3B3B).withValues(alpha: 0.5),
-              blurRadius: 20,
-              spreadRadius: 5,
-            ),
-            BoxShadow(
-              color: const Color(0xFFFF3B3B).withValues(alpha: 0.8),
-              blurRadius: 40,
-              spreadRadius: -2,
-            ),
-          ],
-        ),
-        child: Material(
-          shape: const CircleBorder(),
-          color: Colors.transparent,
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: () {
-              EmergencyModal.show(context);
-            },
-            child: const Center(
-              child: Text(
-                "SOS",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      floatingActionButton: const SosFloatingButton(),
     );
   }
 
@@ -319,7 +265,6 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Handle
             Container(
               width: 40,
               height: 4,
@@ -329,7 +274,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
             Text(
               'Pilih Bahasa',
               style: GoogleFonts.poppins(
@@ -339,7 +283,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            
             Consumer<LanguageProvider>(
               builder: (context, languageProvider, child) {
                 return Column(
@@ -385,7 +328,7 @@ class ProfilePage extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isSelected 
+          color: isSelected
               ? const Color(0xFF667EEA).withValues(alpha: 0.2)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
@@ -411,39 +354,6 @@ class ProfilePage extends StatelessWidget {
                 color: Color(0xFF667EEA),
                 size: 24,
               ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar(BuildContext context) {
-    return BottomAppBar(
-      color: const Color(0xFF1b2340),
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
-      child: SizedBox(
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home_outlined, color: Colors.white),
-              onPressed: () => Navigator.pushNamed(context, AppRoutes.dashboard),
-            ),
-            IconButton(
-              icon: const Icon(Icons.map_outlined, color: Colors.white),
-              onPressed: () => Navigator.pushNamed(context, AppRoutes.map),
-            ),
-            const SizedBox(width: 40),
-            IconButton(
-              icon: const Icon(Icons.chat_bubble_outline, color: Colors.white),
-              onPressed: () => Navigator.pushNamed(context, AppRoutes.ai),
-            ),
-            IconButton(
-              icon: const Icon(Icons.person_outlined, color: Colors.white),
-              onPressed: () {},
-            ),
           ],
         ),
       ),

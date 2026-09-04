@@ -7,7 +7,6 @@
       "name": "emergency_mvp_app",
       "version": "1.0.0+1",
       "dependencies": [
-        "app_settings",
         "connectivity_plus",
         "flutter",
         "flutter_local_notifications",
@@ -137,14 +136,6 @@
         "polylabel",
         "proj4dart",
         "vector_math"
-      ]
-    },
-    {
-      "name": "app_settings",
-      "version": "7.0.0",
-      "dependencies": [
-        "flutter",
-        "plugin_platform_interface"
       ]
     },
     {
@@ -741,13 +732,6 @@
       "dependencies": []
     },
     {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
-    },
-    {
       "name": "shared_preferences_windows",
       "version": "2.4.1",
       "dependencies": [
@@ -1191,6 +1175,13 @@
       "version": "2.0.0",
       "dependencies": [
         "unicode"
+      ]
+    },
+    {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
       ]
     },
     {

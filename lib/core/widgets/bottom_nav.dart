@@ -1,92 +1,117 @@
 import 'package:flutter/material.dart';
 import '../../core/routes.dart';
+import '../../feature/emergency/presentation/emergency_modal.dart';
 
-class BottomNavBar extends StatefulWidget {
+class MainBottomNav extends StatelessWidget {
   final String currentRoute;
-  
-  const BottomNavBar({
-    super.key,
-    required this.currentRoute,
-  });
+
+  const MainBottomNav({super.key, required this.currentRoute});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      color: const Color(0xFF1b2340),
+      shape: const CircularNotchedRectangle(),
+      notchMargin: 8,
+      child: SizedBox(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.home_outlined,
+                color: currentRoute == AppRoutes.dashboard ? const Color(0xFF667EEA) : Colors.white,
+              ),
+              onPressed: () {
+                if (currentRoute != AppRoutes.dashboard) {
+                  Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.map_outlined,
+                color: currentRoute == AppRoutes.map ? const Color(0xFF667EEA) : Colors.white,
+              ),
+              onPressed: () {
+                if (currentRoute != AppRoutes.map) {
+                  Navigator.pushReplacementNamed(context, AppRoutes.map);
+                }
+              },
+            ),
+            const SizedBox(width: 40),
+            IconButton(
+              icon: Icon(
+                Icons.chat_bubble_outline,
+                color: currentRoute == AppRoutes.chat ? const Color(0xFF667EEA) : Colors.white,
+              ),
+              onPressed: () {
+                if (currentRoute != AppRoutes.chat) {
+                  Navigator.pushReplacementNamed(context, AppRoutes.chat);
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.person_outlined,
+                color: currentRoute == AppRoutes.profile ? const Color(0xFF667EEA) : Colors.white,
+              ),
+              onPressed: () {
+                if (currentRoute != AppRoutes.profile) {
+                  Navigator.pushReplacementNamed(context, AppRoutes.profile);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _getCurrentIndex() {
-    switch (widget.currentRoute) {
-      case AppRoutes.dashboard:
-        return 0;
-      case AppRoutes.chat:
-        return 1;
-      case AppRoutes.guide:
-        return 2;
-      default:
-        return 0;
-    }
-  }
-
-  void _onItemTapped(int index, BuildContext context) {
-    String route;
-    switch (index) {
-      case 0:
-        route = AppRoutes.dashboard;
-        break;
-      case 1:
-        route = AppRoutes.chat;
-        break;
-      case 2:
-        route = AppRoutes.guide;
-        break;
-      default:
-        route = AppRoutes.dashboard;
-    }
-    
-    if (route != widget.currentRoute) {
-      Navigator.pushReplacementNamed(context, route);
-    }
-  }
+class SosFloatingButton extends StatelessWidget {
+  const SosFloatingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 70,
+      height: 70,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.8),
-        border: Border(
-          top: BorderSide(
-            color: Colors.white.withValues(alpha: 0.1),
-            width: 1,
+        shape: BoxShape.circle,
+        color: const Color(0xFFFF3B3B),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFFF3B3B).withValues(alpha: 0.5),
+            blurRadius: 20,
+            spreadRadius: 5,
           ),
-        ),
-      ),
-      child: BottomNavigationBar(
-        currentIndex: _getCurrentIndex(),
-        onTap: (index) => _onItemTapped(index, context),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF667EEA),
-        unselectedItemColor: Colors.white54,
-        selectedFontSize: 12,
-        unselectedFontSize: 11,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_outlined),
-            activeIcon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
-            activeIcon: Icon(Icons.chat),
-            label: 'RagaBhumi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.medical_services_outlined),
-            activeIcon: Icon(Icons.medical_services),
-            label: 'P3K',
+          BoxShadow(
+            color: const Color(0xFFFF3B3B).withValues(alpha: 0.8),
+            blurRadius: 40,
+            spreadRadius: -2,
           ),
         ],
+      ),
+      child: Material(
+        shape: const CircleBorder(),
+        color: Colors.transparent,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: () => EmergencyModal.show(context),
+          child: const Center(
+            child: Text(
+              "SOS",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

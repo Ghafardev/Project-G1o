@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import '../data/chat_message.dart';
 import '../data/ai_service.dart';
