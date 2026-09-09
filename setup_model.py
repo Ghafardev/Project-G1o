@@ -1,5 +1,11 @@
 import os
-from huggingface_hub import hf_hub_download
+
+try:
+    from huggingface_hub import hf_hub_download
+except ImportError:
+    print("Error: 'huggingface_hub' module not found.")
+    print("Install it using: pip install huggingface_hub")
+    hf_hub_download = None
 
 def download_mobile_model():
     print("Memulai unduhan model AI Offline yang dioptimasi untuk mobile...")
