@@ -7,10 +7,12 @@ import 'package:emergency_mvp_app/feature/RagaBhumi_ai/data/chat_message.dart';
 import 'package:emergency_mvp_app/core/config/app_config.dart';
 
 class SyncService {
-  final Isar isar;
+  final Isar? isar;
 
   SyncService(this.isar) {
-    _listenToConnectionChanges();
+    if (!kIsWeb) {
+      _listenToConnectionChanges();
+    }
   }
 
   void _listenToConnectionChanges() {
@@ -22,7 +24,9 @@ class SyncService {
   }
 
   Future<void> syncPendingMessages() async {
-    final pendingMessages = await isar.chatMessages
+    if (kIsWeb || isar == null) return;
+    
+    final pendingMessages = await isar!.chatMessages
         .filter()
         .isSyncedEqualTo(false)
         .findAll();
@@ -48,10 +52,10 @@ class SyncService {
       );
 
       if (response.statusCode == 200) {
-        await isar.writeTxn(() async {
+        await isar!.writeTxn(() async {
           for (var msg in pendingMessages) {
             msg.isSynced = true;
-            await isar.chatMessages.put(msg);
+            await isar!.chatMessages.put(msg);
           }
         });
         debugPrint("${pendingMessages.length} pesan berhasil disinkronkan via batch.");
