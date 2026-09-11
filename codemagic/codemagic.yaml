@@ -1,5 +1,0 @@
-visualstudio is missing nessesary components Pleas re run the visual studio installer 
-for the "Desktop C++" workload and include these components: 
-MSVC v142 - VS 2019 C++ x64/x86 build tools
-- if there are multiple build tool versions available, install the latest
-C++ Cmake tools for Windows WIndows 10 SDK

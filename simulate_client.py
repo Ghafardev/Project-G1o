@@ -1,4 +1,8 @@
-import requests
+try:
+    import requests  # type: ignore[import-not-found]
+except ImportError:
+    requests = None
+
 import time
 import json
 
