@@ -16,7 +16,9 @@ class SyncService {
   }
 
   void _listenToConnectionChanges() {
-    Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
+    Connectivity().onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
       if (!results.contains(ConnectivityResult.none)) {
         syncPendingMessages();
       }
@@ -25,40 +27,53 @@ class SyncService {
 
   Future<void> syncPendingMessages() async {
     if (kIsWeb || isar == null) return;
-    
+
     final pendingMessages = await isar!.chatMessages
         .filter()
         .isSyncedEqualTo(false)
         .findAll();
 
-    if (pendingMessages.isEmpty) return;
+    if (pendingMessages.isEmpty || AppConfig.syncApiKey.isEmpty) return;
+
+    final batchMessages = pendingMessages.take(500).toList();
 
     try {
-      final List<Map<String, dynamic>> payload = pendingMessages.map((msg) => {
-        'id': msg.id.toString(),
-        'session_id': 'session_${msg.id}',
-        'sender_type': msg.isUser ? 'user' : 'ai',
-        'message': msg.content,
-        'timestamp': msg.timestamp.millisecondsSinceEpoch,
-      }).toList();
+      final List<Map<String, dynamic>> payload = batchMessages
+          .map(
+            (msg) => {
+              'id': msg.id.toString(),
+              'session_id': 'session_${msg.id}',
+              'sender_type': msg.isUser ? 'user' : 'ai',
+              'message': msg.content,
+              'timestamp': msg.timestamp.millisecondsSinceEpoch ~/ 1000,
+            },
+          )
+          .toList();
 
-      final response = await http.post(
-        Uri.parse(AppConfig.syncEndpoint),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          'device_id': AppConfig.appNameLower,
-          'unsynced_messages': payload,
-        }),
-      );
+      final response = await http
+          .post(
+            Uri.parse(AppConfig.syncEndpoint),
+            headers: {
+              "Content-Type": "application/json",
+              "X-Sync-Api-Key": AppConfig.syncApiKey,
+            },
+            body: jsonEncode({
+              'device_id': AppConfig.appNameLower,
+              'unsynced_messages': payload,
+            }),
+          )
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         await isar!.writeTxn(() async {
-          for (var msg in pendingMessages) {
+          for (var msg in batchMessages) {
             msg.isSynced = true;
             await isar!.chatMessages.put(msg);
           }
         });
-        debugPrint("${pendingMessages.length} pesan berhasil disinkronkan via batch.");
+        debugPrint(
+          "${batchMessages.length} pesan berhasil disinkronkan via batch.",
+        );
       } else {
         debugPrint("Server menolak sinkronisasi: ${response.statusCode}");
       }

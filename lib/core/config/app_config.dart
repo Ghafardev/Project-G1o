@@ -6,6 +6,7 @@ class AppConfig {
 
   static const String _devBaseUrl = 'http://localhost:8000';
   static const String _prodBaseUrl = 'https://api.gaiaconnect.dev';
+  static const String syncApiKey = String.fromEnvironment('SYNC_API_KEY');
 
   static String get apiBaseUrl {
     if (kDebugMode) return _devBaseUrl;

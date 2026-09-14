@@ -5,6 +5,7 @@ except ImportError:
 
 import time
 import json
+import os
 
 def simulate_flutter_app_sync():
     print("Mulai simulasi: WaspadaAI mendeteksi koneksi internet...")
@@ -50,7 +51,12 @@ def simulate_flutter_app_sync():
     print(f"Mengirim {len(payload['unsynced_messages'])} pesan offline ke API Pusat...\n")
     
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(
+            url,
+            json=payload,
+            headers={"X-Sync-Api-Key": os.environ["SYNC_API_KEY"]},
+            timeout=10,
+        )
         
         if response.status_code == 200:
             print("✅ SINKRONISASI BERHASIL!")
